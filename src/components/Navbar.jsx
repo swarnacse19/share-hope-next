@@ -2,12 +2,6 @@
 import Link from "next/link";
 import { useState } from "react";
 
-// const Link = ({ href, children, className }) => (
-//   <a href={href} className={className}>
-//     {children}
-//   </a>
-// );
-
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -21,6 +15,12 @@ function Navbar() {
         className="hover:text-[#04b1ac] transition duration-200"
       >
         All Campaigns
+      </Link>
+      <Link href="/#how-it-works" className="hover:text-[#04b1ac] transition duration-200">
+        How It Works
+      </Link>
+      <Link href="/#success-stories" className="hover:text-[#04b1ac] transition duration-200">
+        Success Stories
       </Link>
       <Link
         href="/about"

@@ -5,4 +5,5 @@
 
 html {
     background-color: #faf9e8;
+    scroll-behavior: smooth;
 }
