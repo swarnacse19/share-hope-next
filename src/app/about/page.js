@@ -1,5 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
+import { FaUsers } from "react-icons/fa";
 
 const AboutUs = () => {
   return (
