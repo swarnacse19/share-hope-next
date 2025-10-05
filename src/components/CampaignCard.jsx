@@ -32,7 +32,7 @@ const CampaignCard = ({ campaign }) => {
   };
 
   return (
-    <Link href={`/campaigns/${_id}`} passHref className="group">
+    <Link href={`/allCampaigns/${_id}`} passHref className="group">
       <div className="bg-white rounded-xl shadow-lg hover:shadow-2xl transition duration-300 overflow-hidden flex flex-col h-full border border-gray-100">
         {/* Campaign Image */}
         <div className="relative w-full h-48 sm:h-56 overflow-hidden">
