@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 
 const stories = [
   {
-    quote: "With ShareHope, we raised 100% of the funds needed for my sister's emergency surgery in just 48 hours. The support was incredible. This platform truly saved her life by allowing us to focus on her health, not the bills.",
+    quote: "With ShareHope, we raised 100% of the funds needed for my sister's emergency surgery in just 48 hours. This platform truly saved her life by allowing us to focus on her health, not the bills.",
     cause: "Medical Emergency",
     raised: "$25,000",
     image: "https://media.istockphoto.com/id/1194700898/photo/asian-senior-woman-sitting-on-the-wheelchair-with-her-son-happy-smile-face-on-the-green-park.jpg?s=612x612&w=0&k=20&c=YvClNmkxbWlYGFpOyqxq3GxNBbPFCq8VXhkX1xtvEQo=",
@@ -29,7 +29,7 @@ const stories = [
   },
   {
     quote:
-      "Our wedding dream came true! We received timely help that covered essential expenses, ensuring a beautiful, stress-free start to our life together. The support meant we didn't have to cut back on important details and could simply enjoy our special day with family and friends.",
+      "Our wedding dream came true! We received timely help that covered essential expenses, ensuring a beautiful, stress-free start to our life together.",
     cause: "Wedding Help",
     raised: "$7,000",
     image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSstG2OZaXw71VRCOvir7RrFy_AFclV3GbZUg&s",
@@ -39,7 +39,7 @@ const stories = [
 const StoryCard = ({ story, index }) => (
   <motion.div
     key={index}
-    className="bg-gray-50 p-6 rounded-xl shadow-xl overflow-hidden flex flex-col h-[450px] w-[85vw] sm:w-[350px] mr-6 flex-shrink-0 group"
+    className="bg-gray-50 p-6 rounded-xl shadow-xl overflow-hidden flex flex-col w-[85vw] sm:w-[350px] mr-6 flex-shrink-0 group"
   >
     {/* Image */}
     <div className="h-48 w-full mb-4 rounded-lg overflow-hidden flex-shrink-0">
@@ -54,10 +54,9 @@ const StoryCard = ({ story, index }) => (
       />
     </div>
 
-    {/* Quote - vertically auto scrolls */}
     <div className="flex-grow min-h-0 overflow-hidden pr-2 relative">
       <FaQuoteLeft className="w-6 h-6 text-teal-500 mb-3 flex-shrink-0" />
-      <div className="quote-scroll text-gray-700 italic text-base leading-relaxed">
+      <div className="text-gray-700 italic text-base leading-relaxed">
         "{story.quote}"
       </div>
     </div>
@@ -72,26 +71,6 @@ const StoryCard = ({ story, index }) => (
       </p>
     </div>
 
-    <style jsx>{`
-      .quote-scroll {
-        position: relative;
-        animation: vertical-scroll 12s linear infinite;
-      }
-
-      @keyframes vertical-scroll {
-        0% {
-          transform: translateY(0%);
-        }
-        100% {
-          transform: translateY(-40%);
-        }
-      }
-
-      /* Pause scrolling when hovering on card */
-      .group:hover .quote-scroll {
-        animation-play-state: paused;
-      }
-    `}</style>
   </motion.div>
 );
 
@@ -127,7 +106,7 @@ function SuccessStories() {
       {/* Marquee */}
       <div className="marquee-container relative py-10 overflow-hidden">
         <div
-          className="marquee-content flex whitespace-nowrap pl-4"
+          className="marquee-content flex pl-4"
           style={{
             animation: "scroll-marquee 30s linear infinite",
             minWidth: "200%",

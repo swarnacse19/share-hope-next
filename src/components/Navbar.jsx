@@ -87,10 +87,10 @@ function Navbar() {
               {/* Login/User Button */}
 
               <Link
-                href="/login"
-                className="px-7 py-2 rounded-md transform transition hover:scale-[1.05] duration-300 bg-[#04b1ac] hover:bg-[#027874] font-semibold shadow-md"
+                href="/register"
+                className="px-7 py-2 rounded-md transform transition hover:scale-[1.05] duration-300 bg-[#04b1ac] hover:bg-[#027874] font-semibold shadow-md text-white"
               >
-                Login
+                Register
               </Link>
             </div>
 

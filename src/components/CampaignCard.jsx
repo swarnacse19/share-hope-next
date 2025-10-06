@@ -47,7 +47,7 @@ const CampaignCard = ({ campaign }) => {
         {/* Card Content */}
         <div className="p-5 flex flex-col flex-grow">
           {/* Title */}
-          <h3 className="text-xl font-bold text-gray-800 mb-2 leading-tight group-hover:text-indigo-600 transition duration-300 line-clamp-2">
+          <h3 className="text-xl font-bold text-gray-800 mb-2 leading-tight transition duration-300 line-clamp-2">
             {title}
           </h3>
 

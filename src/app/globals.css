@@ -4,12 +4,13 @@
 }
 
 html {
-    background-color: #faf9e8;
-    scroll-behavior: smooth;
+  background-color: #faf9e8;
+  scroll-behavior: smooth;
 }
 
 @keyframes pulse-dot {
-  0%, 100% {
+  0%,
+  100% {
     transform: scale(0);
   }
   50% {
