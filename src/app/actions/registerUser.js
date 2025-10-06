@@ -13,8 +13,8 @@ export const registerUser = async (payload) =>{
         const hashedPassword = await bcrypt.hash(password, 10);
         payload.password = hashedPassword;
         const result = await userCollections.insertOne(payload);
-        const { acknowledged } = result;
-        return { acknowledged };
+        result.insertedId = result.insertedId.toString()
+        return result;
     }
-    return { success: false };
+    return null;
 }
