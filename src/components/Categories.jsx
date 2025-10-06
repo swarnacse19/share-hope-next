@@ -93,9 +93,10 @@ const categoriesData = [
 
 function Categories() {
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="bg-gray-50 mt-9">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <section className="py-28">
-        <h2 className="text-3xl font-bold text-center text-teal-700 mb-12">
+        <h2 className="text-3xl md:text-4xl font-bold text-center text-teal-700 mb-12">
           Fundraising Categories We Support
         </h2>
         
@@ -122,6 +123,7 @@ function Categories() {
 
         </div>
       </section>
+    </div>
     </div>
   );
 }

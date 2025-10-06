@@ -1,9 +1,12 @@
 "use client";
+import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import { useState } from "react";
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const { data: session, status } = useSession();
+  // console.log(session);
 
   const navLinks = (
     <>
@@ -16,10 +19,16 @@ function Navbar() {
       >
         All Campaigns
       </Link>
-      <Link href="/#how-it-works" className="hover:text-[#04b1ac] transition duration-200">
+      {/* <Link
+        href="/#how-it-works"
+        className="hover:text-[#04b1ac] transition duration-200"
+      >
         How It Works
-      </Link>
-      <Link href="/#success-stories" className="hover:text-[#04b1ac] transition duration-200">
+      </Link> */}
+      <Link
+        href="/#success-stories"
+        className="hover:text-[#04b1ac] transition duration-200"
+      >
         Success Stories
       </Link>
       <Link
@@ -85,13 +94,32 @@ function Navbar() {
               </div>
 
               {/* Login/User Button */}
-
-              <Link
-                href="/register"
-                className="px-7 py-2 rounded-md transform transition hover:scale-[1.05] duration-300 bg-[#04b1ac] hover:bg-[#027874] font-semibold shadow-md text-white"
-              >
-                Register
-              </Link>
+              {status == "authenticated" ? (
+                <>
+                  <img
+                    src={session?.user?.image || "/avatar.jpg"}
+                    width={50}
+                    height={50}
+                    className="rounded-[50%] border"
+                    alt="user-logo"
+                  />
+                  <button
+                    className="px-7 py-2 rounded-md transform transition hover:scale-[1.05] duration-300 bg-[#04b1ac] hover:bg-[#027874] font-semibold shadow-md cursor-pointer text-white"
+                    onClick={() => signOut()}
+                  >
+                    Log Out
+                  </button>
+                </>
+              ) : (
+                <>
+                  <Link
+                    href="/register"
+                    className="px-7 py-2 rounded-md transform transition hover:scale-[1.05] duration-300 bg-[#04b1ac] hover:bg-[#027874] font-semibold shadow-md cursor-pointer text-white"
+                  >
+                    Register
+                  </Link>
+                </>
+              )}
             </div>
 
             <div className="md:hidden flex items-center">
@@ -138,29 +166,38 @@ function Navbar() {
         {isOpen && (
           <div className="md:hidden bg-white shadow-inner px-4 pt-2 pb-4 space-y-3 border-t border-gray-100 transition-all duration-300 ease-in-out">
             <div className="flex flex-col space-y-3 text-gray-700 font-medium">
-              <Link href="/" className="block hover:text-[#04b1ac]">
-                Home
-              </Link>
-              <Link href="/allCampaigns" className="block hover:text-[#04b1ac]">
-                All Campaigns
-              </Link>
-              <Link href="/about" className="block hover:text-[#04b1ac]">
-                About Us
-              </Link>
-              <Link href="/contact" className="block hover:text-[#04b1ac]">
-                Contact Us
-              </Link>
+              {navLinks}
             </div>
 
             <hr className="my-2 border-gray-100" />
 
             {/* Login for mobile */}
-            <Link
-                href="/register"
-                className="px-7 py-2 rounded-md transform transition hover:scale-[1.05] duration-300 bg-[#04b1ac] hover:bg-[#027874] font-semibold shadow-md text-white"
-              >
-                Register
-              </Link>
+            {status == "authenticated" ? (
+              <>
+                <img
+                  src={session?.user?.image || "/avatar.jpg"}
+                  width={50}
+                  height={50}
+                  className="rounded-[50%] border"
+                  alt="user-logo"
+                />
+                <button
+                  className="px-7 py-2 rounded-md transform transition hover:scale-[1.05] duration-300 bg-[#04b1ac] hover:bg-[#027874] font-semibold shadow-md cursor-pointer text-white"
+                  onClick={() => signOut()}
+                >
+                  Log Out
+                </button>
+              </>
+            ) : (
+              <>
+                <Link
+                  href="/register"
+                  className="px-7 py-2 rounded-md transform transition hover:scale-[1.05] duration-300 bg-[#04b1ac] hover:bg-[#027874] font-semibold shadow-md cursor-pointer text-white"
+                >
+                  Register
+                </Link>
+              </>
+            )}
           </div>
         )}
       </nav>

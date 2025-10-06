@@ -1,7 +1,7 @@
 "use client";
 import { registerUser } from '@/app/actions/registerUser';
 import Link from 'next/link';
-import { FcGoogle } from 'react-icons/fc'; 
+import SocialLogin from '../../login/components/SocialLogin';
 
 const RegisterForm = () => {
     const handleSubmit = async (e) =>{
@@ -9,14 +9,14 @@ const RegisterForm = () => {
         const form = e.target;
         const name = form.name.value;
         const email = form.email.value;
-        const photo = form.photo.value;
+        const image = form.photo.value;
         const password = form.password.value;
         const role = "user";
         const createdAt = new Date().toISOString();
-        registerUser({name, email, photo, password, role, createdAt});
+        registerUser({name, email, image, password, role, createdAt});
     }
   return (
-    <div className="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen flex mb-20 items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8 bg-white p-10 rounded-xl shadow-2xl border border-gray-100">
         <div>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
@@ -25,13 +25,7 @@ const RegisterForm = () => {
         </div>
 
         {/* Google Sign-Up Button */}
-        <button
-          className="group relative w-full flex justify-center py-2 px-4 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white shadow-sm hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 transition duration-150 ease-in-out"
-          // Add your Google Sign-Up logic here
-        >
-          <FcGoogle className="h-6 w-6 mr-3" />
-          Sign up with Google
-        </button>
+        <SocialLogin></SocialLogin>
 
         {/* Separator */}
         <div className="flex items-center justify-between">

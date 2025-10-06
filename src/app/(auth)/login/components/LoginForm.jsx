@@ -1,8 +1,9 @@
 "use client";
 import Link from "next/link";
-import { FcGoogle } from "react-icons/fc";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
+import SocialLogin from "./SocialLogin";
 
 const LoginForm = () => {
     const router = useRouter();
@@ -11,21 +12,23 @@ const LoginForm = () => {
     const form = e.target;
     const email = form.email.value;
     const password = form.password.value;
+    toast("Submitting....");
     try {
       const response = await signIn("credentials", { email, password, callbackUrl: "/", redirect: false, });
       if(response.ok){
+        toast.success("Logged in Successfully");
         router.push("/");
         form.reset();
       }
       else{
-        alert("Failed");
+        toast.error("Failed to log in");
       }
     } catch (error) {
-        console.log(error);
+        toast.error("Failed to log in");
     }
   };
   return (
-    <div className="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen mb-20 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8 bg-white p-10 rounded-xl shadow-2xl border border-gray-100">
         <div>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
@@ -34,13 +37,7 @@ const LoginForm = () => {
         </div>
 
         {/* Google Sign-In Button */}
-        <button
-          className="group relative w-full flex justify-center py-2 px-4 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white shadow-sm hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 transition duration-150 ease-in-out"
-          // Add your Google Sign-In logic here
-        >
-          <FcGoogle className="h-6 w-6 mr-3" />
-          Sign in with Google
-        </button>
+        <SocialLogin></SocialLogin>
 
         {/* Separator */}
         <div className="flex items-center justify-between">

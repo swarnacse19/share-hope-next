@@ -11,9 +11,7 @@ export default function Home() {
       <Banner></Banner>
       <RecentCampaigns></RecentCampaigns>
       <Categories></Categories>
-      <section id="how-it-works">
-        <HowItWorks></HowItWorks>
-      </section>
+      <HowItWorks></HowItWorks>
       <section id="success-stories">
         <SuccessStories></SuccessStories>
       </section>
