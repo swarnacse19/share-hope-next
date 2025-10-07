@@ -20,10 +20,13 @@ export const authOptions = {
                 console.log(credentials)
                 
                 const user = await loginUser(credentials)
-                console.log(user)
+                // console.log(user)
                 if (user) {
                     
-                    return user
+                    return {
+                        ...user, 
+                        // image: user.image,
+                    }
                 } else {
                     
                     return null
@@ -54,6 +57,23 @@ export const authOptions = {
                 }
             }
             return true
+        },
+        async jwt({ token, user, account, profile }) {
+            
+            if (user) {
+                token.id = user._id; 
+                token.image = user.image; 
+            }
+            return token;
+        },
+
+        async session({ session, token }) {
+            
+            if (token) {
+                session.user.id = token.id;
+                session.user.image = token.image; 
+            }
+            return session;
         },
     }
 }

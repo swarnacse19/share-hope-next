@@ -96,6 +96,12 @@ function Navbar() {
               {/* Login/User Button */}
               {status == "authenticated" ? (
                 <>
+                  <Link
+                    href="/dashboard"
+                    className="hover:text-[#04b1ac] transition duration-200"
+                  >
+                    Dashboard
+                  </Link>
                   <img
                     src={session?.user?.image || "/avatar.jpg"}
                     width={50}
