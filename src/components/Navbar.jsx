@@ -104,8 +104,8 @@ function Navbar() {
                   </Link>
                   <img
                     src={session?.user?.image || "/avatar.jpg"}
-                    width={50}
-                    height={50}
+                    width={40}
+                    height={40}
                     className="rounded-[50%] border"
                     alt="user-logo"
                   />
@@ -182,8 +182,8 @@ function Navbar() {
               <>
                 <img
                   src={session?.user?.image || "/avatar.jpg"}
-                  width={50}
-                  height={50}
+                  width={40}
+                  height={40}
                   className="rounded-[50%] border"
                   alt="user-logo"
                 />

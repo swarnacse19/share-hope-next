@@ -1,6 +1,4 @@
 
-import dbConnect from '@/lib/dbConnect';
-import { ObjectId } from 'mongodb';
 import React from 'react';
 import { FaRegShareFromSquare } from "react-icons/fa6";
 
@@ -29,9 +27,8 @@ const calculateDaysLeft = (dateString) => {
 export default async function CampaignDetailsPage({ params }) {
   const campaignId = params.id; 
   
-  const objectId = new ObjectId(campaignId); 
-
-  const campaign = await dbConnect("campaigns").findOne({ _id: objectId });
+  const res = await fetch(`http://localhost:3000/api/campaign/${campaignId}`);
+  const campaign = await res.json();
 
   if (!campaign) {
     return (

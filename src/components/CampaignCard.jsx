@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import { calculateDaysLeft } from "./calculateDaysLeft";
 
 const CampaignCard = ({ campaign }) => {
   const { title, description, category, image, goalAmount, raisedAmount, deadline, _id } =
@@ -17,20 +18,7 @@ const CampaignCard = ({ campaign }) => {
       minimumFractionDigits: 0,
     }).format(amount);
   };
-
-  // Calculate days left
-  const calculateDaysLeft = (dateString) => {
-    const deadlineDate = new Date(dateString);
-    const today = new Date();
-    // Set hours to 0 to only compare the date
-    today.setHours(0, 0, 0, 0);
-    deadlineDate.setHours(0, 0, 0, 0);
-
-    const diffTime = deadlineDate.getTime() - today.getTime();
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-    return diffDays > 0 ? `${diffDays} days left` : "Deadline passed";
-  };
-
+  
   return (
     <Link href={`/allCampaigns/${_id}`} passHref className="group">
       <div className="bg-white rounded-xl shadow-lg hover:shadow-2xl transition duration-300 overflow-hidden flex flex-col h-full border border-gray-100">
