@@ -1,6 +1,9 @@
 "use client";
 import { FaQuoteLeft, FaCheckCircle } from 'react-icons/fa';
 import { motion } from "framer-motion";
+import AOS from "aos";
+import "aos/dist/aos.css";
+import { useEffect } from "react";
 
 const stories = [
   {
@@ -21,6 +24,9 @@ const stories = [
     raised: "$8,500",
     image: "https://www.aspcapro.org/sites/default/files/styles/image_component/public/2024-01/volunteer-with-shepherd-dog.jpg.webp?itok=ohOWmDyJ",
   },
+];
+
+const story = [
   {
     quote: "After the storm, ShareHope donors helped us rebuild our home from the ground up. This platform gave us a fresh start and hope for the future.",
     cause: "Home Reconstruction",
@@ -34,12 +40,12 @@ const stories = [
     raised: "$7,000",
     image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSstG2OZaXw71VRCOvir7RrFy_AFclV3GbZUg&s",
   },
-];
+]
 
 const StoryCard = ({ story, index }) => (
   <motion.div
-    key={index}
-    className="bg-gray-50 p-6 rounded-xl shadow-xl overflow-hidden flex flex-col w-[85vw] sm:w-[350px] mr-6 flex-shrink-0 group"
+    key={index} data-aos="fade-right"
+    className="bg-teal-50 shadow-xl p-6 rounded-xl overflow-hidden flex flex-col w-[85vw] sm:w-[350px] mr-6 flex-shrink-0 group"
   >
     {/* Image */}
     <div className="h-48 w-full mb-4 rounded-lg overflow-hidden flex-shrink-0">
@@ -75,24 +81,15 @@ const StoryCard = ({ story, index }) => (
 );
 
 function SuccessStories() {
-  return (
-    <section className="py-20 md:py-32">
-      <style jsx global>{`
-        @keyframes scroll-marquee {
-          0% {
-            transform: translateX(0%);
-          }
-          100% {
-            transform: translateX(-50%);
-          }
-        }
-        .marquee-container:hover .marquee-content {
-          animation-play-state: paused;
-        }
-      `}</style>
+  useEffect(() => {
+    AOS.init({ duration: 2000 });
+  }, []);
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
+  return (
+    <div className='bg-white'>
+      <section className="py-20 md:py-32 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <div className="text-center mb-16">
           <FaCheckCircle className="w-10 h-10 text-teal-500 mx-auto mb-3" />
           <h2 className="text-4xl font-extrabold text-gray-900 mb-4">
             Inspiring Success Stories
@@ -101,23 +98,21 @@ function SuccessStories() {
             See how real people are using ShareHope to change lives and achieve their goals.
           </p>
         </div>
-      </div>
 
-      {/* Marquee */}
-      <div className="marquee-container relative py-10 overflow-hidden">
-        <div
-          className="marquee-content flex pl-4"
-          style={{
-            animation: "scroll-marquee 30s linear infinite",
-            minWidth: "200%",
-          }}
-        >
-          {[...stories, ...stories].map((story, index) => (
-            <StoryCard key={index} story={story} index={index} />
-          ))}
+      <div className='flex flex-col justify-center gap-4'>
+        <div className='grid grid-cols-1 gap-3 lg:grid-cols-3 max-w-6xl mx-auto'>
+          {stories.map((story, index) => (
+          <StoryCard key={index} story={story} index={index} />
+        ))}
+        </div>
+        <div className='grid grid-cols-1 gap-3 lg:grid-cols-2 max-w-4xl mx-auto'>
+          {story.map((story, index) => (
+          <StoryCard key={index} story={story} index={index} />
+        ))}
         </div>
       </div>
     </section>
+    </div>
   );
 }
 

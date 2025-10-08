@@ -2,9 +2,13 @@
 import { registerUser } from '@/app/actions/registerUser';
 import Link from 'next/link';
 import SocialLogin from '../../login/components/SocialLogin';
+import toast from 'react-hot-toast';
+import { useRouter } from 'next/navigation';
 
 const RegisterForm = () => {
+  const router = useRouter();
     const handleSubmit = async (e) =>{
+        toast("Submitting...");
         e.preventDefault();
         const form = e.target;
         const name = form.name.value;
@@ -13,7 +17,12 @@ const RegisterForm = () => {
         const password = form.password.value;
         const role = "user";
         const createdAt = new Date().toISOString();
-        registerUser({name, email, image, password, role, createdAt});
+        const isOk = await registerUser({name, email, image, password, role, createdAt});
+        if(isOk.insertedId){
+          toast.success("Registration Complete!");
+          router.push("/login");
+          form.reset();
+        }
     }
   return (
     <div className="min-h-screen flex mb-20 items-center justify-center py-12 px-4 sm:px-6 lg:px-8">

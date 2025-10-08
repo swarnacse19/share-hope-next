@@ -28,7 +28,7 @@ export default async function RecentCampaigns() {
 
   // --- Display Recent Campaigns ---
   return (
-    <div className="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+    <div className="container max-w-7xl my-28 mx-auto px-4 sm:px-6 lg:px-8 py-24">
       <h1 className="text-4xl font-bold text-gray-800 mb-10 pb-4">
         Discover the Latest Campaigns
       </h1>

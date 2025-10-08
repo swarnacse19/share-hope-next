@@ -1,5 +1,4 @@
-
-import Sidebar from "./components/Sidebar";
+import ConditionalSidebar from "./components/ConditionalSidebar";
 
 export const metadata = {
   title: "Dashboard | ShareHope",
@@ -7,15 +6,12 @@ export const metadata = {
 };
 
 export default function DashboardLayout({ children }) {
-  return (
-    <div className="flex min-h-screen bg-gray-50">
-      {/* 1. Left Sidebar */}
-      <div className="w-64 flex-shrink-0">
-        <Sidebar />
-      </div>
 
-      {/* 2. Right Content Area */}
-      <div className="flex-1 p-8">
+  return (
+    <div className="flex min-h-screen bg-gray-50 relative">
+
+      <ConditionalSidebar></ConditionalSidebar>
+      <div className="flex-1 p-8 w-full mt-12 md:mt-0">
         {children}
       </div>
     </div>

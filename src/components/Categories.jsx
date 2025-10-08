@@ -1,22 +1,22 @@
 "use client";
-import { motion } from "framer-motion";
+import { motion, useAnimation } from "framer-motion";
+import { useInView } from "react-intersection-observer";
+import { useEffect } from "react";
 import { 
   FaGraduationCap, 
   FaPaw, 
   FaBriefcase, 
   FaUsers, 
   FaHeart,
-  FaHome, // New Icon for Family
-  FaRunning, // New Icon for Sports
-  FaPaintBrush, // New Icon for Creative
-  FaCloudRain, // New Icon for Disaster/Flood
+  FaHome, 
+  FaRunning, 
+  FaPaintBrush, 
+  FaCloudRain, 
 } from "react-icons/fa";
 import { GiHospitalCross } from "react-icons/gi";
-import { IoIosPeople } from "react-icons/io"; // New Icon for Community
+import { IoIosPeople } from "react-icons/io"; 
 
-// --- Data for all 10 Categories ---
 const categoriesData = [
-  // --- Existing 5 Categories ---
   {
     title: "Medical & Aid",
     description: "Supporting urgent healthcare costs, emergency relief, and essential supplies.",
@@ -52,8 +52,6 @@ const categoriesData = [
     color: "text-pink-500",
     bgColor: "bg-pink-50",
   },
-
-  // --- 5 New Categories ---
   {
     title: "Disaster Relief",
     description: "Immediate support for victims of floods, fires, and natural disasters.",
@@ -92,38 +90,68 @@ const categoriesData = [
 ];
 
 function Categories() {
+  const controls = useAnimation();
+  const [ref, inView] = useInView({ threshold: 0.2, triggerOnce: true });
+
+  useEffect(() => {
+    if (inView) {
+      controls.start("visible");
+    }
+  }, [controls, inView]);
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.2 }, 
+    },
+  };
+
+  const cardVariants = {
+    hidden: { opacity: 0, y: 40 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.6, ease: "easeOut" },
+    },
+  };
+
   return (
     <div className="bg-gray-50 mt-9">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <section className="py-28">
-        <h2 className="text-3xl md:text-4xl font-bold text-center text-teal-700 mb-12">
-          Fundraising Categories We Support
-        </h2>
-        
-        {/* The grid is now set to display 5 columns on large screens to fit all 10 cards nicely in two rows */}
-        <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 max-w-7xl mx-auto">
-          
-          {categoriesData.map((category) => (
-            <motion.div
-              key={category.title} // Always use a unique key when mapping
-              whileHover={{ scale: 1.05, boxShadow: "0 10px 15px rgba(0, 0, 0, 0.1)" }}
-              className={`p-6 shadow-md rounded-xl text-center border border-gray-100 ${category.bgColor}`}
-            >
-              <category.icon 
-                className={`mx-auto ${category.color} w-10 h-10 mb-4`} 
-              />
-              <h3 className="text-xl font-semibold mb-2 text-gray-800">
-                {category.title}
-              </h3>
-              <p className="text-gray-600 text-sm">
-                {category.description}
-              </p>
-            </motion.div>
-          ))}
+        <section className="py-28" ref={ref}>
+          <h2 className="text-3xl md:text-4xl font-bold text-center text-teal-700 mb-12">
+            Fundraising Categories We Support
+          </h2>
 
-        </div>
-      </section>
-    </div>
+          <motion.div
+            className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 max-w-7xl mx-auto"
+            variants={containerVariants}
+            initial="hidden"
+            animate={controls}
+          >
+            {categoriesData.map((category) => (
+              <motion.div
+                key={category.title}
+                variants={cardVariants}
+                whileHover={{
+                  scale: 1.05,
+                  boxShadow: "0 10px 15px rgba(0, 0, 0, 0.1)",
+                }}
+                className={`p-6 shadow-md rounded-xl text-center border border-gray-100 ${category.bgColor}`}
+              >
+                <category.icon
+                  className={`mx-auto ${category.color} w-10 h-10 mb-4`}
+                />
+                <h3 className="text-xl font-semibold mb-2 text-gray-800">
+                  {category.title}
+                </h3>
+                <p className="text-gray-600 text-sm">{category.description}</p>
+              </motion.div>
+            ))}
+          </motion.div>
+        </section>
+      </div>
     </div>
   );
 }

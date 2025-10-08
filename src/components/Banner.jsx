@@ -16,7 +16,7 @@ const causes = [
 
 function Banner() {
   return (
-    <section className="py-24 md:py-32 bg-[#faf9e8] text-black overflow-hidden">
+    <section className="py-24 md:py-36 bg-[#faf9e8] text-black overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
 
         {causes.map((cause, index) => (
