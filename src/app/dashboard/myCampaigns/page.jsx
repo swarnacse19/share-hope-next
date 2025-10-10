@@ -1,58 +1,20 @@
-"use client";
 
-import { useState, useEffect } from "react";
-import toast from "react-hot-toast";
 import MyAllCampaign from "./components/MyAllCampaign";
+import { headers } from "next/headers";
 
-const MyCampaigns = () => {
-  const [campaigns, setCampaigns] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+const fetchCampaigns = async () => {
+    const res = await fetch("http://localhost:3000/api/campaign", {
+      method: "GET",
+      headers: headers(),
+    });
 
-  // --- API Call: Data Fetching ---
-  const fetchCampaigns = async () => {
-    setError(null);
-    try {
-      const res = await fetch("http://localhost:3000/api/campaign", {
-        method: "GET",
-      });
-
-      if (!res.ok) {
-        throw new Error(`Failed to fetch campaigns. Status: ${res.status}`);
-      }
-
-      const data = await res.json();
-      setCampaigns(data);
-    } catch (err) {
-      console.error("Error fetching campaigns:", err);
-      setError("Failed to load campaigns.");
-      toast.error("Campaigns load failed!");
-      setCampaigns([]);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchCampaigns();
-  }, []);
-
-  if (loading) {
-    return (
-      <div className="text-center py-24 text-xl">Loading campaigns...</div>
-    );
+    const d = await res.json();
+    return d;
   }
 
-  if (error) {
-    return (
-      <div className="text-center py-24 text-xl text-red-600">
-        Error: {error}
-      </div>
-    );
-  }
-
-  // --- Component JSX ---
-
+const MyCampaigns = async () => {
+  const campaigns = await fetchCampaigns();
+  
   return (
     <div className="container mx-auto p-4">
       {campaigns.length === 0 ? (

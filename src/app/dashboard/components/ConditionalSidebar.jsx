@@ -8,7 +8,7 @@ export default function ConditionalSidebar() {
 
   return (
     <div>
-      <div className="hidden md:block w-64 flex-shrink-0">
+      <div className="hidden md:block fixed w-64 flex-shrink-0">
         <Sidebar />
       </div>
 

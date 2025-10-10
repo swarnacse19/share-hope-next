@@ -15,9 +15,10 @@ function Sidebar() {
   const { data: session, status } = useSession();
 
   return (
-    <div className="flex flex-col justify-between h-full bg-white border-r border-gray-200 w-64 p-4 overflow-y-auto">
-      <div>
-        <div className="pb-6 border-b border-gray-200">
+    <div className="flex flex-col h-screen bg-white border-r border-gray-200 w-64 p-4">
+      {/* --- Top Section --- */}
+      <div className="flex-1 overflow-y-auto">
+        <div className="py-6 border-b border-gray-200">
           <Link href="/" className="text-2xl font-bold text-[#027874] italic">
             ShareHope
           </Link>
@@ -37,36 +38,33 @@ function Sidebar() {
         </nav>
       </div>
 
-      <div className="pt-4 border-t border-gray-200">
-        {status === "authenticated" && (
-          <div className="flex flex-col items-start space-y-3">
-            <div className="flex items-center space-x-3">
-              <img
-                src={session?.user?.image || "/avatar.jpg"}
-                width={40}
-                height={40}
-                className="rounded-full border"
-                alt="User Avatar"
-              />
-              <div>
-                <p className="text-sm font-semibold text-gray-800">
-                  {session?.user?.name || "User"}
-                </p>
-                <p className="text-xs text-gray-500">
-                  {session?.user?.email}
-                </p>
-              </div>
+      
+      {status === "authenticated" && (
+        <div className="border-t border-gray-200 pt-4 mt-4">
+          <div className="flex items-center space-x-3 mb-3">
+            <img
+              src={session?.user?.image || "/avatar.jpg"}
+              width={40}
+              height={40}
+              className="rounded-full border"
+              alt="User Avatar"
+            />
+            <div>
+              <p className="text-sm font-semibold text-gray-800">
+                {session?.user?.name || "User"}
+              </p>
+              <p className="text-xs text-gray-500">{session?.user?.email}</p>
             </div>
-
-            <button
-              onClick={() => signOut()}
-              className="w-full text-center px-4 py-2 text-sm font-medium rounded-lg transition duration-300 bg-[#027874] text-white hover:bg-[#04b1ac]"
-            >
-              Log Out
-            </button>
           </div>
-        )}
-      </div>
+
+          <button
+            onClick={() => signOut()}
+            className="w-full text-center px-4 py-2 text-sm font-medium rounded-lg transition duration-300 bg-[#027874] text-white hover:bg-[#04b1ac]"
+          >
+            Log Out
+          </button>
+        </div>
+      )}
     </div>
   );
 }

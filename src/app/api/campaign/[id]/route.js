@@ -20,7 +20,7 @@ export const DELETE = async (req, { params }) => {
         // Deleting User specific booking
 
         const deleteResponse = await campaignCollection.deleteOne(query)
-        revalidatePath("/my-bookings")
+        revalidatePath("/dashboard/myCampaigns")
         return NextResponse.json(deleteResponse)
     }
     else {
@@ -37,3 +37,35 @@ export const GET = async (req, { params }) => {
 
   return NextResponse.json(campaign);
 };
+
+export const PATCH = async (req, { params }) => {
+    const p = await params;
+    const campaignCollection = dbConnect("campaigns")
+    const query = { _id: new ObjectId(p.id) }
+
+    const session = await getServerSession(authOptions)
+    const email = session?.user?.email
+    const current = await campaignCollection.findOne(query)
+    const isOwnerOK = email === current?.createdBy
+
+    if (isOwnerOK) {
+        const body = await req.json()
+
+        const filter = {
+            $set: { ...body }
+        }
+
+        const option = {
+            upsert: true
+        }
+        const updateResponse = await campaignCollection.updateOne(query, filter, option)
+        revalidatePath("/dashboard/myCampaigns")
+        return NextResponse.json(updateResponse)
+    }
+    else {
+        return NextResponse.json({ message: "Forbidden Update action" }, {
+            status: 403
+        })
+    }
+
+}

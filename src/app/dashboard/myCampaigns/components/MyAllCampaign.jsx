@@ -1,21 +1,10 @@
-"use client";
-import { useRouter } from "next/navigation";
+
+import Link from "next/link";
 import React from "react";
+import DeleteButton from "./DeleteButton";
 
-export default function MyAllCampaign({campaigns}) {
-
-     const router = useRouter();
-  const handleDelete = async (id) => {
-    const res = await fetch(
-      `http://localhost:3000/api/campaign/${id}`,
-      {
-        method: "DELETE",
-      }
-    );
-    const data = await res.json();
-    console.log(data);
-    router.refresh();
-  };
+export default function MyAllCampaign({ campaigns }) {
+  
   return (
     <div className="overflow-x-auto max-w-6xl mx-auto">
       <table className="table w-full shadow-md">
@@ -31,7 +20,7 @@ export default function MyAllCampaign({campaigns}) {
         </thead>
         <tbody>
           {campaigns.map((c) => (
-            <tr key={c._id} className="text-center bg-gray-100">
+            <tr key={c._id} className="text-center bg-teal-50">
               <td>
                 <img
                   src={c.image}
@@ -43,22 +32,11 @@ export default function MyAllCampaign({campaigns}) {
               <td>{c.category}</td>
               <td>{c.goalAmount}</td>
               <td>{c.raisedAmount}</td>
-              <td className="space-x-2">
-                <button
-                  onClick={() => {
-                    setSelectedCampaign(c);
-                    setIsModalOpen(true);
-                  }}
-                  className="px-3 py-1 bg-green-700 hover:bg-green-800 text-white rounded transition"
-                >
+              <td className="flex flex-col md:flex-row justify-center items-center gap-2">
+                <Link href={`/dashboard/myCampaigns/${c._id}`} className="px-3 py-1 bg-green-700 hover:bg-green-800 w-20 cursor-pointer text-white rounded transition">
                   Update
-                </button>
-                <button
-                  onClick={() => handleDelete(c._id)}
-                  className="px-3 py-1 bg-red-500 hover:bg-red-600 text-white rounded transition"
-                >
-                  Delete
-                </button>
+                </Link>
+                <DeleteButton id={c._id}></DeleteButton>
               </td>
             </tr>
           ))}

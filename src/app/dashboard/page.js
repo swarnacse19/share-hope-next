@@ -1,7 +1,7 @@
 import React from "react";
 import StatCard from "./components/StatCard";
-import RecentActivity from "./components/RecentActivity";
 import Link from "next/link";
+import PieChartNeedle from "./components/PieChartNeddle";
 
 async function DashboardPage() {
   const stats = [
@@ -10,19 +10,6 @@ async function DashboardPage() {
     { title: "Pending Approvals", value: "2", icon: "⏳" },
   ];
 
-  const activities = [
-    { type: "Campaign Created", name: "Education for All", date: "2 days ago" },
-    {
-      type: "Donation Received",
-      name: "৳5,000 for Flood Relief",
-      date: "5 hours ago",
-    },
-    {
-      type: "Profile Updated",
-      name: "Added new contact info",
-      date: "1 week ago",
-    },
-  ];
 
   return (
     <div className="space-y-8">
@@ -31,7 +18,7 @@ async function DashboardPage() {
       </h2>
 
       {/* 1. Statistics / Summary Section (Grid) */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {stats.map((stat, index) => (
           <StatCard key={index} {...stat} />
         ))}
@@ -40,7 +27,7 @@ async function DashboardPage() {
       {/* 2. Recent Activities */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div className="lg:col-span-2">
-          <RecentActivity activities={activities} />
+          <PieChartNeedle></PieChartNeedle>
         </div>
 
         {/* Quick Action Buttons */}
