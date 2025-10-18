@@ -43,7 +43,7 @@ export default async function CampaignDetailsPage({ params }) {
   const percentage = Math.min(100, Math.round((campaign.raisedAmount / campaign.goalAmount) * 100));
 
   return (
-    <div className="container mx-auto px-4 py-10 lg:py-16">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-16">
       <div className="bg-white rounded-xl shadow-2xl overflow-hidden">
         <div className="lg:grid lg:grid-cols-3">
           

@@ -19,7 +19,7 @@ export default async function AllCampaigns() {
   }
 
   return (
-    <div className="container mx-auto px-4 py-12">
+    <div className="max-w-7xl mx-auto px-4 py-12 sm:px-6 lg:px-8">
       <h1 className="text-4xl font-extrabold text-gray-800 mb-10 border-b pb-4">
         Explore All Active Campaigns
       </h1>

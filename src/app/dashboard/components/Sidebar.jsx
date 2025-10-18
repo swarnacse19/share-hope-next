@@ -8,7 +8,7 @@ const sidebarLinks = [
   { name: "My Profile", href: "/dashboard/myProfile" },
   { name: "My Campaigns", href: "/dashboard/myCampaigns" },
   { name: "Create Campaign", href: "/dashboard/createCampaign" },
-  { name: "My Donations", href: "/dashboard/myDonations" },
+  { name: "My Transactions", href: "/dashboard/myTransactions" },
 ];
 
 function Sidebar() {

@@ -81,13 +81,14 @@ export default function DonateForm({ campaignId }) {
             donorId: user?.email,
             donorName: user?.name || user?.email,
             transactionId,
+            date: new Date().toISOString(),
           }),
         });
 
         const saveResult = await saveRes.json();
         // console.log(saveResult);
 
-        if (saveResult.insertedId) {
+        if (saveResult.success) {
           await Swal.fire({
             icon: "success",
             title: "Donation Successful!",
@@ -95,6 +96,7 @@ export default function DonateForm({ campaignId }) {
             confirmButtonColor: "#22c55e",
           });
           router.refresh(); 
+          router.push(`/allCampaigns/${campaignId}`);
         } else {
           toast("Payment succeeded but failed to save donation.", {
             icon: "⚠️",
@@ -115,9 +117,9 @@ export default function DonateForm({ campaignId }) {
         onSubmit={handleDonate}
         className="bg-white shadow-lg p-6 rounded-xl max-w-md mx-auto space-y-5 mt-26 border border-gray-200"
       >
-        <h2 className="text-2xl font-bold text-center text-gray-800">
+        {/* <h2 className="text-2xl font-bold text-center text-gray-800">
           Donate to Campaign
-        </h2>
+        </h2> */}
 
         <div>
           <label className="block text-sm font-medium text-gray-600 mb-1">
