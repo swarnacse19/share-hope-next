@@ -1,8 +1,9 @@
 
+import Link from 'next/link';
 import React from 'react';
+import { FaFacebookF, FaTwitter } from 'react-icons/fa';
 import { FaRegShareFromSquare } from "react-icons/fa6";
 
-// Helper function to format currency (re-used from the card)
 const formatCurrency = (amount) => {
   return new Intl.NumberFormat('en-US', {
     style: 'currency',
@@ -11,7 +12,6 @@ const formatCurrency = (amount) => {
   }).format(amount);
 };
 
-// Helper function to calculate days left (re-used from the card)
 const calculateDaysLeft = (dateString) => {
   const deadlineDate = new Date(dateString);
   const today = new Date();
@@ -47,12 +47,10 @@ export default async function CampaignDetailsPage({ params }) {
       <div className="bg-white rounded-xl shadow-2xl overflow-hidden">
         <div className="lg:grid lg:grid-cols-3">
           
-          {/* LEFT COLUMN: Main Content (Image, Title, Description) */}
           <div className="lg:col-span-2 p-6 md:p-10">
             
             {/* Image Section */}
             <div className="relative w-full h-80 md:h-[400px] rounded-lg overflow-hidden mb-6">
-                {/* Using Next.js Image for optimization, replace with <img> if needed */}
                 <img
                     src={campaign.image}
                     alt={campaign.title}
@@ -121,12 +119,11 @@ export default async function CampaignDetailsPage({ params }) {
                     <span className="text-red-500">{calculateDaysLeft(campaign.deadline)}</span>
                 </div>
                 
-                {/* Donate Button (Placeholder - link to checkout/payment) */}
-                <button
-                    className="w-full py-3 bg-blue-600 text-white font-bold text-lg rounded-lg hover:bg-blue-700 transition duration-300 shadow-lg shadow-blue-300"
+                <Link href={`/allCampaigns/${campaignId}/donate`}
+                    className="w-full inline-block text-center py-3 bg-blue-600 text-white font-bold text-lg rounded-lg hover:bg-blue-700 transition duration-300 shadow-lg shadow-blue-300"
                 >
                     Donate Now
-                </button>
+                </Link>
                 
                 {/* Created By Info */}
                 <p className="text-center text-xs text-gray-500 mt-4">
@@ -143,8 +140,8 @@ export default async function CampaignDetailsPage({ params }) {
                 {/* Social Share Icons/Buttons Placeholder */}
                 <div className="flex justify-center space-x-4">
                     {/* Add your social media icons here */}
-                    <button className="text-blue-500 hover:text-blue-700">FB</button>
-                    <button className="text-sky-500 hover:text-sky-700">Twitter</button>
+                    <button className="text-blue-500 hover:text-blue-700"><FaFacebookF size={20}/></button>
+                    <button className="text-sky-500 hover:text-sky-700"><FaTwitter size={20}/></button>
                     <button className="text-gray-500 hover:text-gray-700">Link</button>
                 </div>
             </div>

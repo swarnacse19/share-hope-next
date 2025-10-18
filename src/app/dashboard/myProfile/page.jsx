@@ -61,7 +61,7 @@ function MyProfilePage() {
           src={session?.user?.image || "/avatar.jpg"}
           width={100}
           height={100}
-          className="rounded-full border-4 border-[#04b1ac] shadow-md"
+          className="border-4 border-[#04b1ac] shadow-md"
           alt="User Avatar"
         />
         <h3 className="mt-4 text-xl font-semibold text-gray-900">

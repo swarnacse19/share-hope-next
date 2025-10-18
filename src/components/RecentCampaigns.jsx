@@ -28,7 +28,7 @@ export default async function RecentCampaigns() {
 
   // --- Display Recent Campaigns ---
   return (
-    <div className="container max-w-7xl my-28 mx-auto px-4 sm:px-6 lg:px-8 py-24">
+    <div className="container max-w-7xl my-28 mx-auto px-4 sm:px-6 lg:px-8 pt-24">
       <h1 className="text-4xl font-bold text-gray-800 mb-10 pb-4">
         Discover the Latest Campaigns
       </h1>
@@ -47,14 +47,14 @@ export default async function RecentCampaigns() {
       </div>
       
       {/* Optional: Add a button/link to see ALL campaigns */}
-      <div className="text-center mt-12">
+      {/* <div className="text-center mt-12">
         <a 
           href="/allCampaigns" 
           className="px-6 py-3 bg-teal-600 text-white font-semibold rounded-lg shadow-md hover:bg-teal-700 transition duration-300"
         >
           View All Campaigns
         </a>
-      </div>
+      </div> */}
     </div>
   );
 }

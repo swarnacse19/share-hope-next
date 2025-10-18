@@ -3,8 +3,16 @@ import Link from "next/link";
 import { calculateDaysLeft } from "./calculateDaysLeft";
 
 const CampaignCard = ({ campaign }) => {
-  const { title, description, category, image, goalAmount, raisedAmount, deadline, _id } =
-    campaign;
+  const {
+    title,
+    description,
+    category,
+    image,
+    goalAmount,
+    raisedAmount,
+    deadline,
+    _id,
+  } = campaign;
 
   const percentage = Math.min(
     100,
@@ -18,9 +26,9 @@ const CampaignCard = ({ campaign }) => {
       minimumFractionDigits: 0,
     }).format(amount);
   };
-  
+
   return (
-    <Link href={`/allCampaigns/${_id}`} passHref className="group">
+    <div className="group">
       <div className="bg-white rounded-xl shadow-lg hover:shadow-2xl transition duration-300 overflow-hidden flex flex-col h-full border border-gray-100">
         {/* Campaign Image */}
         <div className="relative w-full h-48 sm:h-56 overflow-hidden">
@@ -81,8 +89,11 @@ const CampaignCard = ({ campaign }) => {
             </div>
           </div>
         </div>
+        <div className="p-5">
+          <Link href={`/allCampaigns/${_id}`} className="bg-teal-500 px-5 py-2 rounded-sm font-medium">View Details</Link>
+        </div>
       </div>
-    </Link>
+    </div>
   );
 };
 

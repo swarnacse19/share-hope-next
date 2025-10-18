@@ -6,7 +6,7 @@ import { useState } from "react";
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const { data: session, status } = useSession();
-  // console.log(session);
+  // console.log(session, status);
 
   const navLinks = (
     <>
