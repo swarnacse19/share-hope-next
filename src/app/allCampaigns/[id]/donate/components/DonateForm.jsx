@@ -78,15 +78,16 @@ export default function DonateForm({ campaignId }) {
           body: JSON.stringify({
             campaignId,
             amount: parseInt(amount),
-            email: user?.email,
+            donorId: user?.email,
             donorName: user?.name || user?.email,
             transactionId,
           }),
         });
 
         const saveResult = await saveRes.json();
+        // console.log(saveResult);
 
-        if (saveResult.success) {
+        if (saveResult.insertedId) {
           await Swal.fire({
             icon: "success",
             title: "Donation Successful!",
