@@ -100,7 +100,7 @@ function SuccessStories() {
           </p>
         </div>
 
-        <Marquee pauseOnHover={true} speed={60} direction="left">
+        <Marquee pauseOnHover={true} speed={50} direction="left">
           <div className="flex items-stretch">
             {stories.map((story, index) => (
               <StoryCard key={index} story={story} index={index} />
