@@ -1,3 +1,4 @@
+import AboutTrustSection from "@/components/AboutTrustSection";
 import Banner from "@/components/Banner";
 import Categories from "@/components/Categories";
 import HowItWorks from "@/components/HowItWorks";
@@ -11,6 +12,7 @@ export default function Home() {
   return (
     <>
       <Banner></Banner>
+      <AboutTrustSection></AboutTrustSection>
       <RecentCampaigns></RecentCampaigns>
       <Categories></Categories>
       <HowItWorks></HowItWorks>

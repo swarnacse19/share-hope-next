@@ -61,7 +61,7 @@ export default function TopDonors() {
   const max = Math.max(...donors.map((d) => d.amount));
 
   return (
-    <section className="bg-white py-12">
+    <section className="bg-white py-20 md:py-32">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div>
           <h3 className="text-3xl font-bold text-gray-900">Top Donors</h3>
