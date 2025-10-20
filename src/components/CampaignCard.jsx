@@ -29,7 +29,7 @@ const CampaignCard = ({ campaign }) => {
 
   return (
     <div className="group">
-      <div className="bg-white rounded-xl shadow-lg hover:shadow-2xl transition duration-300 overflow-hidden flex flex-col h-full border border-gray-100">
+      <div className="bg-gray-50 rounded-xl shadow-lg hover:shadow-2xl transition duration-300 overflow-hidden flex flex-col h-full border border-gray-100">
         {/* Campaign Image */}
         <div className="relative w-full h-48 sm:h-56 overflow-hidden">
           <img
@@ -57,7 +57,7 @@ const CampaignCard = ({ campaign }) => {
           </p>
 
           {/* Progress Bar */}
-          <div className="mb-4">
+          {/* <div className="mb-4">
             <div className="w-full bg-gray-200 rounded-full h-2.5">
               <div
                 className="bg-indigo-600 h-2.5 rounded-full"
@@ -71,10 +71,10 @@ const CampaignCard = ({ campaign }) => {
                 {calculateDaysLeft(deadline)}
               </span>
             </div>
-          </div>
+          </div> */}
 
           {/* Amounts */}
-          <div className="flex justify-between items-center text-sm font-semibold mt-auto pt-3 border-t border-gray-100">
+          {/* <div className="flex justify-between items-center text-sm font-semibold mt-auto pt-3 border-t border-gray-100">
             <div>
               <p className="text-gray-500">Raised:</p>
               <p className="text-lg text-green-600">
@@ -87,10 +87,10 @@ const CampaignCard = ({ campaign }) => {
                 {formatCurrency(goalAmount)}
               </p>
             </div>
-          </div>
+          </div> */}
         </div>
         <div className="p-5">
-          <Link href={`/allCampaigns/${_id}`} className="bg-teal-500 px-5 py-2 rounded-sm font-medium">View Details</Link>
+          <Link href={`/allCampaigns/${_id}`} className="bg-teal-500 text-white px-5 py-2 rounded-sm font-medium">View Details</Link>
         </div>
       </div>
     </div>

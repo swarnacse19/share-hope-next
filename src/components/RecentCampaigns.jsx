@@ -28,8 +28,9 @@ export default async function RecentCampaigns() {
 
   // --- Display Recent Campaigns ---
   return (
-    <div className="container max-w-7xl my-28 mx-auto px-4 sm:px-6 lg:px-8 pt-24">
-      <h1 className="text-4xl font-bold text-gray-800 mb-10 pb-4">
+    <div className="bg-white">
+      <div className="container max-w-7xl py-28 mx-auto px-4 sm:px-6 lg:px-8">
+      <h1 className="text-3xl font-bold text-gray-800 mb-5 pb-4">
         Discover the Latest Campaigns
       </h1>
 
@@ -39,14 +40,12 @@ export default async function RecentCampaigns() {
                    lg:grid-cols-3 
                    "
       >
-        {/* 3. Map over the 6 recent campaigns and Render Card */}
         {campaigns.map((campaign) => (
-          // Using the MongoDB '_id' as the unique key
+          
           <CampaignCard key={campaign._id.toString()} campaign={campaign} />
         ))}
       </div>
       
-      {/* Optional: Add a button/link to see ALL campaigns */}
       {/* <div className="text-center mt-12">
         <a 
           href="/allCampaigns" 
@@ -55,6 +54,7 @@ export default async function RecentCampaigns() {
           View All Campaigns
         </a>
       </div> */}
+    </div>
     </div>
   );
 }
