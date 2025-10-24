@@ -1,61 +1,60 @@
 "use client";
 import { useRouter } from "next/navigation";
 import React from "react";
-import Swal from 'sweetalert2'; 
+import Swal from "sweetalert2";
 
 export default function DeleteButton({ id }) {
   const router = useRouter();
 
   const handleDelete = async (campaignId) => {
-    
     const result = await Swal.fire({
-      title: 'Are you sure?',
+      title: "Are you sure?",
       text: "You won't be able to revert this campaign!",
-      icon: 'warning',
+      icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: '#d33', 
-      cancelButtonColor: '#3085d6',
-      confirmButtonText: 'Yes, delete it!'
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Yes, delete it!",
     });
 
     if (result.isConfirmed) {
       try {
-        const res = await fetch(`http://localhost:3000/api/campaign/${campaignId}`, {
-          method: "DELETE",
-        });
+        const res = await fetch(
+          `https://share-hope.vercel.app/api/campaign/${campaignId}`,
+          {
+            method: "DELETE",
+          }
+        );
 
         const data = await res.json();
         console.log(data);
 
         if (data.deletedCount > 0) {
-          
           Swal.fire({
-            title: 'Deleted!',
-            text: 'The campaign has been successfully deleted.',
-            icon: 'success',
+            title: "Deleted!",
+            text: "The campaign has been successfully deleted.",
+            icon: "success",
             timer: 3000,
             timerProgressBar: true,
-            showConfirmButton: false
+            showConfirmButton: false,
           });
           router.refresh();
-
         } else {
-           Swal.fire({
-            title: 'Error!',
-            text: 'Could not delete the campaign. Please try again.',
-            icon: 'error'
+          Swal.fire({
+            title: "Error!",
+            text: "Could not delete the campaign. Please try again.",
+            icon: "error",
           });
         }
       } catch (error) {
         console.error("Deletion error:", error);
         Swal.fire({
-          title: 'Network Error',
-          text: 'An error occurred while connecting to the server.',
-          icon: 'error'
+          title: "Network Error",
+          text: "An error occurred while connecting to the server.",
+          icon: "error",
         });
       }
     }
-    
   };
 
   return (

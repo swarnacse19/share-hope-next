@@ -5,9 +5,9 @@ import toast from "react-hot-toast";
 
 export default function CreateCampaign() {
   const { data: session } = useSession();
-//   console.log(session);
+  //   console.log(session);
 
-  const handleSubmit = async (e) =>{
+  const handleSubmit = async (e) => {
     toast("Creating..");
     e.preventDefault();
     const form = e.target;
@@ -18,26 +18,23 @@ export default function CreateCampaign() {
       image: form.image.value,
       category: form.category.value,
       goalAmount: parseInt(form.goalAmount.value),
-      raisedAmount: 500, 
+      raisedAmount: 500,
       deadline: form.deadline.value,
-      createdBy: session?.user?.email, 
-      donors: [], 
-      status: "Active", 
+      createdBy: session?.user?.email,
+      donors: [],
+      status: "Active",
       createdAt: new Date().toISOString(),
     };
 
-    const res = await fetch(
-      "http://localhost:3000/api/campaign",
-      {
-        method: "POST",
-        body: JSON.stringify(newCampaign),
-      }
-    );
+    const res = await fetch("https://share-hope.vercel.app/api/campaign", {
+      method: "POST",
+      body: JSON.stringify(newCampaign),
+    });
     const postedResponse = await res.json();
     console.log("POSTED DATA", postedResponse);
     toast.success("Campaign Created Successfully");
-  }
-  
+  };
+
   return (
     <div className="max-w-3xl mx-auto bg-white shadow-lg rounded-xl p-8 my-20">
       <h2 className="text-2xl font-bold mb-6 text-center text-teal-600">

@@ -2,10 +2,9 @@ import { headers } from "next/headers";
 import React from "react";
 
 const fetchDonations = async () => {
-  const requestHeaders = await headers();
-  const res = await fetch("http://localhost:3000/api/donations", {
+  const res = await fetch("https://share-hope.vercel.app/api/donations", {
     method: "GET",
-    headers: requestHeaders,
+    headers: new Headers(await headers()),
     cache: "no-store",
   });
   const data = await res.json();

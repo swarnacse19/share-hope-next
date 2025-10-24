@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import { calculateDaysLeft } from "./calculateDaysLeft";
+// import { calculateDaysLeft } from "./calculateDaysLeft";
 
 const CampaignCard = ({ campaign }) => {
   const {
@@ -11,21 +11,22 @@ const CampaignCard = ({ campaign }) => {
     goalAmount,
     raisedAmount,
     deadline,
+    createdBy,
     _id,
   } = campaign;
 
-  const percentage = Math.min(
-    100,
-    Math.round((raisedAmount / goalAmount) * 100)
-  );
+  // const percentage = Math.min(
+  //   100,
+  //   Math.round((raisedAmount / goalAmount) * 100)
+  // );
 
-  const formatCurrency = (amount) => {
-    return new Intl.NumberFormat("en-US", {
-      style: "currency",
-      currency: "USD",
-      minimumFractionDigits: 0,
-    }).format(amount);
-  };
+  // const formatCurrency = (amount) => {
+  //   return new Intl.NumberFormat("en-US", {
+  //     style: "currency",
+  //     currency: "USD",
+  //     minimumFractionDigits: 0,
+  //   }).format(amount);
+  // };
 
   return (
     <div className="group">
@@ -48,12 +49,15 @@ const CampaignCard = ({ campaign }) => {
           </h3>
 
           {/* Description */}
-          <p className="text-sm text-gray-600 mb-4 line-clamp-3 flex-grow">
+          <p className="text-sm text-gray-600 mb-2 line-clamp-3 flex-grow">
             {description}
           </p>
 
-          <p className="text-sm text-gray-700 mb-4 font-medium">
+          <p className="text-sm text-gray-700 mb-2 font-medium">
             Category : {category}
+          </p>
+          <p className="text-sm text-gray-600 mb-2">
+            Created by : {createdBy}
           </p>
 
           {/* Progress Bar */}
@@ -74,7 +78,7 @@ const CampaignCard = ({ campaign }) => {
           </div> */}
 
           {/* Amounts */}
-          {/* <div className="flex justify-between items-center text-sm font-semibold mt-auto pt-3 border-t border-gray-100">
+          {/* <div className="flex justify-between items-center text-sm font-semibold mt-auto pt-2 border-t border-gray-200">
             <div>
               <p className="text-gray-500">Raised:</p>
               <p className="text-lg text-green-600">
@@ -89,7 +93,7 @@ const CampaignCard = ({ campaign }) => {
             </div>
           </div> */}
         </div>
-        <div className="p-5">
+        <div className="px-5 pb-5">
           <Link href={`/allCampaigns/${_id}`} className="bg-teal-500 text-white px-5 py-2 rounded-sm font-medium">View Details</Link>
         </div>
       </div>

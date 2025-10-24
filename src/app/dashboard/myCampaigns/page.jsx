@@ -1,20 +1,32 @@
-
-import MyAllCampaign from "./components/MyAllCampaign";
 import { headers } from "next/headers";
+import MyAllCampaign from "./components/MyAllCampaign";
 
 const fetchCampaigns = async () => {
-    const res = await fetch("http://localhost:3000/api/campaign", {
+  try {
+    const res = await fetch(`${process.env.NEXTAUTH_URL}/api/campaign`, {
       method: "GET",
-      headers: headers(),
+      headers: new Headers(await headers()),
+      cache: "no-store", 
     });
 
-    const d = await res.json();
-    return d;
-  }
+    if (!res.ok) {
+      console.error("Failed to fetch campaigns:", res.statusText);
+      return [];
+    }
 
-const MyCampaigns = async () => {
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    console.error("Error fetching campaigns:", error);
+    return [];
+  }
+};
+
+export const dynamic = "force-dynamic";
+
+export default async function MyCampaigns() {
   const campaigns = await fetchCampaigns();
-  
+
   return (
     <div className="container mx-auto p-4">
       {campaigns.length === 0 ? (
@@ -27,11 +39,8 @@ const MyCampaigns = async () => {
           </p>
         </div>
       ) : (
-        <MyAllCampaign campaigns={campaigns}></MyAllCampaign>
+        <MyAllCampaign campaigns={campaigns} />
       )}
-
     </div>
   );
-};
-
-export default MyCampaigns;
+}
