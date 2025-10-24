@@ -1,6 +1,7 @@
 import AboutTrustSection from "@/components/AboutTrustSection";
 import Banner from "@/components/Banner";
 import Categories from "@/components/Categories";
+import FAQSection from "@/components/FAQSection";
 import HowItWorks from "@/components/HowItWorks";
 import Newsletter from "@/components/Newsletter";
 import RecentCampaigns from "@/components/RecentCampaigns";
@@ -20,6 +21,7 @@ export default function Home() {
       <section id="success-stories">
         <SuccessStories></SuccessStories>
       </section>
+      <FAQSection></FAQSection>
       <Newsletter></Newsletter>
     </>
   );
