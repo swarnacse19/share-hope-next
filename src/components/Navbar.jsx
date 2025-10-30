@@ -1,12 +1,23 @@
 "use client";
 import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const { data: session, status } = useSession();
+  const [userData, setUserData] = useState(null);
   // console.log(session, status);
+  useEffect(() => {
+    if (session?.user?.email) {
+      fetch(`/api/users/${session.user.email}`)
+        .then((res) => res.json())
+        .then((data) => setUserData(data))
+        .catch((err) => console.error("Failed to fetch user:", err));
+    }
+  }, [session?.user?.email]);
+
+  const userImage = userData?.image || session?.user?.image || "/avatar.jpg";
 
   const navLinks = (
     <>
@@ -103,7 +114,7 @@ function Navbar() {
                     Dashboard
                   </Link>
                   <img
-                    src={session?.user?.image || "/avatar.jpg"}
+                    src={userImage}
                     width={40}
                     height={40}
                     className="rounded-[50%] border"
@@ -180,8 +191,14 @@ function Navbar() {
             {/* Login for mobile */}
             {status == "authenticated" ? (
               <>
+                <Link
+                  href="/dashboard"
+                  className="hover:text-[#04b1ac] transition duration-200"
+                >
+                  Dashboard
+                </Link>
                 <img
-                  src={session?.user?.image || "/avatar.jpg"}
+                  src={userImage}
                   width={40}
                   height={40}
                   className="rounded-[50%] border"

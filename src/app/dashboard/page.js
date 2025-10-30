@@ -7,7 +7,6 @@ async function DashboardPage() {
   const stats = [
     { title: "Total Campaigns", value: "5", icon: "✨" },
     { title: "Funds Raised (BDT)", value: "৳1,50,000", icon: "💰" },
-    { title: "Pending Approvals", value: "2", icon: "⏳" },
   ];
 
 

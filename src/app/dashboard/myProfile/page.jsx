@@ -1,37 +1,84 @@
 "use client";
 
 import { useSession } from "next-auth/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
 function MyProfilePage() {
   const { data: session, status } = useSession();
   const [isEditing, setIsEditing] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [imagePreview, setImagePreview] = useState(null);
 
-  // Demo
   const [profileData, setProfileData] = useState({
-    name: session?.user?.name || "Loading...",
-    email: session?.user?.email || "Loading...",
-    address: "Dhaka, Bangladesh",
-    role: session?.user?.role || "guest",
+    name: "",
+    email: "",
+    image: "",
+    role: "",
   });
 
-  const isLoading = status === "loading";
+  // Fetch user data from DB
+  useEffect(() => {
+    if (session?.user?.email) {
+      fetch(`/api/users/${session.user.email}`)
+        .then((res) => res.json())
+        .then((data) => {
+          setProfileData({
+            name: data.name,
+            email: data.email,
+            image: data.image,
+            role: data.role,
+          });
+          setLoading(false);
+        })
+        .catch(() => setLoading(false));
+    }
+  }, [session]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setProfileData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSave = (e) => {
-    e.preventDefault();
-    // pore korbo (call api and save)
-    console.log("Saving data:", profileData);
-    toast.success("Profile updated successfully!");
-    setIsEditing(false);
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => setImagePreview(reader.result);
+      reader.readAsDataURL(file);
+    }
   };
 
-  if (isLoading) {
+  const handleSave = async (e) => {
+    e.preventDefault();
+    try {
+      const updatedData = {
+        name: profileData.name,
+        image: imagePreview || profileData.image,
+      };
+
+      const res = await fetch("/api/users/update", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: profileData.email,
+          updatedData,
+        }),
+      });
+
+      const data = await res.json();
+      if (data.success) {
+        toast.success("Profile updated successfully!");
+        setIsEditing(false);
+      } else {
+        toast.error(data.message);
+      }
+    } catch (err) {
+      toast.error("Error updating profile!");
+    }
+  };
+
+  if (status === "loading" || loading) {
     return (
       <div className="text-center py-10 text-gray-500">
         Loading profile data...
@@ -58,24 +105,30 @@ function MyProfilePage() {
       {/* Profile Picture Section */}
       <div className="flex flex-col items-center mb-8">
         <img
-          src={session?.user?.image || "/avatar.jpg"}
+          src={imagePreview || profileData.image || "/avatar.jpg"}
           width={100}
           height={100}
-          className="border-4 border-[#04b1ac] shadow-md"
+          className="border-4 border-[#04b1ac] shadow-md rounded-full object-cover"
           alt="User Avatar"
         />
+        {isEditing && (
+          <input
+            type="file"
+            accept="image/*"
+            onChange={handleImageChange}
+            className="mt-4 text-sm text-gray-500"
+          />
+        )}
         <h3 className="mt-4 text-xl font-semibold text-gray-900">
           {profileData.name}
         </h3>
         <p className="text-gray-500 text-sm">{profileData.email}</p>
         <p className="text-gray-500 text-sm">{profileData.role}</p>
-        {/* Image upload functionality can be added here */}
       </div>
 
-      {/* Profile Data Form/View */}
+      {/* Profile Data Form */}
       <form onSubmit={handleSave}>
         <div className="space-y-6">
-          {/* Name Field */}
           <ProfileField
             label="Full Name"
             name="name"
@@ -83,19 +136,8 @@ function MyProfilePage() {
             onChange={handleInputChange}
             isEditing={isEditing}
           />
-
-          {/* Address Field */}
-          <ProfileField
-            label="Address"
-            name="address"
-            value={profileData.address}
-            onChange={handleInputChange}
-            isEditing={isEditing}
-          />
-
         </div>
 
-        {/* Save Button (only visible when editing) */}
         {isEditing && (
           <div className="mt-8 pt-4 border-t">
             <button
