@@ -28,7 +28,7 @@ export default async function CampaignDetailsPage({ params }) {
   const campaignId = params.id;
 
   const res = await fetch(
-    `https://share-hope.vercel.app/api/campaign/${campaignId}`
+    `${process.env.NEXTAUTH_URL}/api/campaign/${campaignId}`
   );
   const campaign = await res.json();
 

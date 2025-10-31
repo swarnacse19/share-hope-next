@@ -108,7 +108,7 @@ function MyProfilePage() {
           src={imagePreview || profileData.image || "/avatar.jpg"}
           width={100}
           height={100}
-          className="border-4 border-[#04b1ac] shadow-md rounded-full object-cover"
+          className="border-4 border-[#04b1ac] shadow-md object-cover"
           alt="User Avatar"
         />
         {isEditing && (

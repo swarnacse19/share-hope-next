@@ -4,7 +4,7 @@ import UpdateForm from "../components/UpdateForm";
 export default async function UpdateCampaign({ params }) {
   const p = await params;
   const res = await fetch(
-    `https://share-hope.vercel.app/api/campaign/${p.id}`,
+    `${process.env.NEXTAUTH_URL}/api/campaign/${p.id}`,
     {
       method: "GET",
     }

@@ -2,7 +2,7 @@ import { headers } from "next/headers";
 import React from "react";
 
 const fetchDonations = async () => {
-  const res = await fetch("https://share-hope.vercel.app/api/donations", {
+  const res = await fetch(`${process.env.NEXTAUTH_URL}/api/donations`, {
     method: "GET",
     headers: new Headers(await headers()),
     cache: "no-store",

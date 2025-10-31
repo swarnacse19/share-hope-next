@@ -1,55 +1,60 @@
-import React from "react";
-import StatCard from "./components/StatCard";
-import Link from "next/link";
-import PieChartNeedle from "./components/PieChartNeddle";
+"use client";
+import React, { useEffect, useState } from "react";
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
 
-async function DashboardPage() {
-  const stats = [
-    { title: "Total Campaigns", value: "5", icon: "✨" },
-    { title: "Funds Raised (BDT)", value: "৳1,50,000", icon: "💰" },
-  ];
+export default function OverviewPage() {
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
 
+  useEffect(() => {
+    const fetchOverview = async () => {
+      const res = await fetch("/api/overview");
+      const json = await res.json();
+      setData(json);
+      setLoading(false);
+    };
+    fetchOverview();
+  }, []);
+
+  if (loading) {
+    return <div className="text-center mt-10 text-gray-600">Loading overview...</div>;
+  }
 
   return (
-    <div className="space-y-8">
-      <h2 className="text-3xl font-extrabold text-[#027874]">
-        Welcome Back, User!
-      </h2>
+    <div className="p-6 md:p-10">
+      <h1 className="text-2xl font-semibold text-[#027874] mb-6">Dashboard Overview</h1>
 
-      {/* 1. Statistics / Summary Section (Grid) */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {stats.map((stat, index) => (
-          <StatCard key={index} {...stat} />
-        ))}
+      {/* Top Cards */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+        <div className="bg-white rounded-2xl shadow-md p-6 border-l-4 border-[#04b1ac]">
+          <h3 className="text-gray-600 text-sm font-medium">Total Campaigns</h3>
+          <p className="text-3xl font-bold text-[#027874] mt-2">{data.totalCampaigns}</p>
+        </div>
+
+        <div className="bg-white rounded-2xl shadow-md p-6 border-l-4 border-[#04b1ac]">
+          <h3 className="text-gray-600 text-sm font-medium">Total Funds Raised</h3>
+          <p className="text-3xl font-bold text-[#027874] mt-2">${data.totalFundsRaised}</p>
+        </div>
+
+        <div className="bg-white rounded-2xl shadow-md p-6 border-l-4 border-[#04b1ac]">
+          <h3 className="text-gray-600 text-sm font-medium">Total Donations Made</h3>
+          <p className="text-3xl font-bold text-[#027874] mt-2">{data.totalDonationsCount}</p>
+        </div>
       </div>
 
-      {/* 2. Recent Activities */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <div className="lg:col-span-2">
-          <PieChartNeedle></PieChartNeedle>
-        </div>
-
-        {/* Quick Action Buttons */}
-        <div className="bg-white p-6 rounded-xl shadow border border-gray-100 space-y-4 h-fit">
-          <h3 className="text-xl font-semibold text-gray-800 border-b pb-3">
-            Quick Actions
-          </h3>
-          <Link
-            href="/dashboard/createCampaign"
-            className="block w-full text-center py-3 rounded-lg font-medium transition duration-300 bg-[#04b1ac] text-white hover:bg-[#027874] shadow-md"
-          >
-            Start a New Campaign
-          </Link>
-          <Link
-            href="/dashboard/myProfile"
-            className="block w-full text-center py-3 rounded-lg font-medium transition duration-300 bg-gray-100 text-gray-700 hover:bg-gray-200"
-          >
-            Update Your Profile
-          </Link>
-        </div>
+      {/* Line Chart */}
+      <div className="bg-white rounded-2xl shadow-md p-6">
+        <h3 className="text-lg font-semibold text-gray-700 mb-4">Monthly Donations</h3>
+        <ResponsiveContainer width="100%" height={350}>
+          <LineChart data={data.monthlyDonations}>
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="month" />
+            <YAxis />
+            <Tooltip />
+            <Line type="monotone" dataKey="total" stroke="#04b1ac" strokeWidth={2} />
+          </LineChart>
+        </ResponsiveContainer>
       </div>
     </div>
   );
 }
-
-export default DashboardPage;

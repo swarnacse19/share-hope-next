@@ -20,14 +20,14 @@ export default function DeleteButton({ id }) {
     if (result.isConfirmed) {
       try {
         const res = await fetch(
-          `https://share-hope.vercel.app/api/campaign/${campaignId}`,
+          `/api/campaign/${campaignId}`,
           {
             method: "DELETE",
           }
         );
 
         const data = await res.json();
-        console.log(data);
+        // console.log(data);
 
         if (data.deletedCount > 0) {
           Swal.fire({

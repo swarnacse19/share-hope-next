@@ -30,12 +30,6 @@ function Navbar() {
       >
         All Campaigns
       </Link>
-      {/* <Link
-        href="/#how-it-works"
-        className="hover:text-[#04b1ac] transition duration-200"
-      >
-        How It Works
-      </Link> */}
       <Link
         href="/#success-stories"
         className="hover:text-[#04b1ac] transition duration-200"
@@ -130,10 +124,10 @@ function Navbar() {
               ) : (
                 <>
                   <Link
-                    href="/register"
+                    href="/login"
                     className="px-7 py-2 rounded-md transform transition hover:scale-[1.05] duration-300 bg-[#04b1ac] hover:bg-[#027874] font-semibold shadow-md cursor-pointer text-white"
                   >
-                    Register
+                    Login
                   </Link>
                 </>
               )}
@@ -214,10 +208,10 @@ function Navbar() {
             ) : (
               <>
                 <Link
-                  href="/register"
+                  href="/login"
                   className="px-7 py-2 rounded-md transform transition hover:scale-[1.05] duration-300 bg-[#04b1ac] hover:bg-[#027874] font-semibold shadow-md cursor-pointer text-white"
                 >
-                  Register
+                  Login
                 </Link>
               </>
             )}

@@ -4,7 +4,7 @@ import React from "react";
 import toast from "react-hot-toast";
 
 export default function UpdateForm({ data }) {
-  console.log("from update form", data);
+  // console.log("from update form", data);
   const router = useRouter();
 
   const handleSubmit = async (e) => {
@@ -22,14 +22,14 @@ export default function UpdateForm({ data }) {
     };
 
     const res = await fetch(
-      `https://share-hope.vercel.app/api/campaign/${data._id}`,
+      `/api/campaign/${data._id}`,
       {
         method: "PATCH",
         body: JSON.stringify(newCampaign),
       }
     );
     const postedResponse = await res.json();
-    console.log("UPDATED DATA", postedResponse);
+    // console.log("UPDATED DATA", postedResponse);
     router.push("/dashboard/myCampaigns");
     toast.success("Campaign Updated Successfully");
   };

@@ -26,7 +26,7 @@ export default function CreateCampaign() {
       createdAt: new Date().toISOString(),
     };
 
-    const res = await fetch("https://share-hope.vercel.app/api/campaign", {
+    const res = await fetch("/api/campaign", {
       method: "POST",
       body: JSON.stringify(newCampaign),
     });
