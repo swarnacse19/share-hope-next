@@ -92,7 +92,7 @@ function MyProfilePage() {
         <h2 className="text-2xl font-bold text-gray-800">My Profile Details</h2>
         <button
           onClick={() => setIsEditing(!isEditing)}
-          className={`px-4 py-2 text-sm font-medium rounded-lg transition duration-300 ${
+          className={`px-4 py-2 text-sm font-medium rounded-lg transition duration-300 cursor-pointer ${
             isEditing
               ? "bg-red-500 hover:bg-red-600 text-white"
               : "bg-[#04b1ac] hover:bg-[#027874] text-white"
@@ -103,22 +103,34 @@ function MyProfilePage() {
       </div>
 
       {/* Profile Picture Section */}
-      <div className="flex flex-col items-center mb-8">
-        <img
-          src={imagePreview || profileData.image || "/avatar.jpg"}
-          width={100}
-          height={100}
-          className="border-4 border-[#04b1ac] shadow-md object-cover"
-          alt="User Avatar"
-        />
-        {isEditing && (
-          <input
-            type="file"
-            accept="image/*"
-            onChange={handleImageChange}
-            className="mt-4 text-sm text-gray-500"
+      <div className="flex flex-col items-center mb-10 text-center">
+        <div className="relative">
+          <img
+            src={imagePreview || profileData.image || "/avatar.jpg"}
+            alt="User Avatar"
+            width={130}
+            height={130}
+            className="w-32 h-32 rounded-full border-4 border-[#04b1ac] object-cover shadow-md"
           />
-        )}
+          {isEditing && (
+            <label
+              htmlFor="profileImage"
+              className="absolute bottom-0 right-0 bg-[#04b1ac] hover:bg-[#027874] text-white text-xs px-3 py-1.5 rounded-full cursor-pointer shadow-md transition duration-300"
+            >
+              Change
+            </label>
+          )}
+          {isEditing && (
+            <input
+              id="profileImage"
+              type="file"
+              accept="image/*"
+              onChange={handleImageChange}
+              className="hidden"
+            />
+          )}
+        </div>
+
         <h3 className="mt-4 text-xl font-semibold text-gray-900">
           {profileData.name}
         </h3>

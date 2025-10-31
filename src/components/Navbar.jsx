@@ -111,7 +111,7 @@ function Navbar() {
                     src={userImage}
                     width={40}
                     height={40}
-                    className="rounded-[50%] border"
+                    className="w-10 h-10 rounded-full object-cover border"
                     alt="user-logo"
                   />
                   <button

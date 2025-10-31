@@ -4,7 +4,6 @@ import Link from "next/link";
 import { signOut, useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 
-
 const sidebarLinks = [
   { name: "Overview", href: "/dashboard" },
   { name: "My Profile", href: "/dashboard/myProfile" },
@@ -18,16 +17,16 @@ function Sidebar() {
   const [userData, setUserData] = useState(null);
 
   useEffect(() => {
-      if (session?.user?.email) {
-        fetch(`/api/users/${session.user.email}`)
-          .then((res) => res.json())
-          .then((data) => setUserData(data))
-          .catch((err) => console.error("Failed to fetch user:", err));
-      }
-    }, [session?.user?.email]);
-  
-    const userImage = userData?.image || session?.user?.image || "/avatar.jpg";
-    const userName = userData?.name || session?.user?.name || "User";
+    if (session?.user?.email) {
+      fetch(`/api/users/${session.user.email}`)
+        .then((res) => res.json())
+        .then((data) => setUserData(data))
+        .catch((err) => console.error("Failed to fetch user:", err));
+    }
+  }, [session?.user?.email]);
+
+  const userImage = userData?.image || session?.user?.image || "/avatar.jpg";
+  const userName = userData?.name || session?.user?.name || "User";
 
   return (
     <div className="flex flex-col h-screen bg-white border-r border-gray-200 w-64 p-4">
@@ -53,7 +52,6 @@ function Sidebar() {
         </nav>
       </div>
 
-      
       {status === "authenticated" && (
         <div className="border-t border-gray-200 pt-4 mt-4">
           <div className="flex items-center space-x-3 mb-3">
@@ -61,13 +59,11 @@ function Sidebar() {
               src={userImage}
               width={40}
               height={40}
-              className="rounded-full border"
+              className="w-10 h-10 rounded-full object-cover border"
               alt="User Avatar"
             />
             <div>
-              <p className="text-sm font-semibold text-gray-800">
-                {userName}
-              </p>
+              <p className="text-sm font-semibold text-gray-800">{userName}</p>
               <p className="text-xs text-gray-500">{session?.user?.email}</p>
             </div>
           </div>
