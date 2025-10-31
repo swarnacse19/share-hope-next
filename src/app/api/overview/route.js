@@ -4,7 +4,7 @@ import { getServerSession } from "next-auth";
 
 export async function GET(req) {
   try {
-    // Get logged-in user's email
+    
     const session = await getServerSession(authOptions);
     if (!session || !session.user?.email) {
       return new Response(
@@ -18,17 +18,14 @@ export async function GET(req) {
     const campaignsColl = dbConnect("campaigns");
     const donationsColl = dbConnect("donations");
 
-    // 1️⃣ Total campaigns created by this user
     const totalCampaigns = await campaignsColl.countDocuments({ createdBy: userEmail });
 
-    // 2️⃣ Total funds raised for this user’s campaigns
     const fundsAgg = await campaignsColl.aggregate([
       { $match: { createdBy: userEmail } },
       { $group: { _id: null, totalRaised: { $sum: "$raisedAmount" } } },
     ]).toArray();
     const totalFundsRaised = (fundsAgg[0] && fundsAgg[0].totalRaised) || 0;
 
-    // 3️⃣ Total donations made by this user (as donor)
     const donationsAgg = await donationsColl.aggregate([
       { $match: { donorId: userEmail } },
       { $group: { _id: null, totalDonationsAmount: { $sum: "$amount" }, count: { $sum: 1 } } },
@@ -36,7 +33,6 @@ export async function GET(req) {
     const totalDonationsAmount = (donationsAgg[0] && donationsAgg[0].totalDonationsAmount) || 0;
     const totalDonationsCount = (donationsAgg[0] && donationsAgg[0].count) || 0;
 
-    // 4️⃣ Monthly donations made by this user
     const monthlyAgg = await donationsColl.aggregate([
   { $match: { donorId: userEmail } },
   {
