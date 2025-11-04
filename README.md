@@ -90,8 +90,8 @@ Follow these steps to run **ShareHope** locally on your machine:
 
 5.  **Run the project:**
     Start the development server with this command:
-    `bash
+    ```bash
     npm run dev
-    `
+    ```
 The project will now be live at `http://localhost:3000`.
 
