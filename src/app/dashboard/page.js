@@ -3,7 +3,7 @@ import OverView from "./components/OverView";
 
 export default async function OverviewPage() {
   const res = await fetch(`${process.env.NEXTAUTH_URL}/api/overview`, {
-    headers: headers(),
+    headers: new Headers(await headers()),
     cache: "no-store",
   });
 
